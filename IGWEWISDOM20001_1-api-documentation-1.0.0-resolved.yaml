@@ -4,202 +4,202 @@ info:
   description: Hng task3.
   version: 1.0.0
 servers:
-  - url: http://localhost:8080/api
+- url: http://localhost:8080/api
 security:
-  - bearerAuth: []
+- bearerAuth: []
 tags:
-  - name: Auth
-    description: Everything about your Authentication
-  - name: Emails
-    description: Access to Emails
-  - name: Payments
-    description: Access to Payment Sessions
-  - name: Users
-    description: Access to Users
-  - name: Organisations
-    description: Access to Organisations
-  - name: SuperAdmin
-    description: Access to SuperAdmin Functionalities
-  - name: Invite
-    description: Access to Invite
-  - name: Notifications
-    description: Access to Notifications
+- name: Auth
+  description: Everything about your Authentication
+- name: Emails
+  description: Access to Emails
+- name: Payments
+  description: Access to Payment Sessions
+- name: Users
+  description: Access to Users
+- name: Organisations
+  description: Access to Organisations
+- name: SuperAdmin
+  description: Access to SuperAdmin Functionalities
+- name: Invite
+  description: Access to Invite
+- name: Notifications
+  description: Access to Notifications
 paths:
   /auth/register:
     post:
       tags:
-        - Auth
+      - Auth
       summary: Register a new user
       requestBody:
-        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/RegisterRequest'
+        required: true
       responses:
-        '200':
+        "200":
           description: Successfully registered
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/AuthResponse'
-        '400':
+        "400":
           description: Bad Request
-        '500':
+        "500":
           description: Internal Server Error
   /auth/login:
     post:
       tags:
-        - Auth
+      - Auth
       summary: User login
       requestBody:
-        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/LoginRequest'
+        required: true
       responses:
-        '200':
+        "200":
           description: Successfully logged in
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/AuthResponse'
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '500':
+        "500":
           description: Internal Server Error
   /auth/logout:
     post:
       tags:
-        - Auth
+      - Auth
       summary: User logout
       responses:
-        '200':
+        "200":
           description: Successfully logged out
-        '400':
+        "400":
           description: Bad Request
-        '500':
+        "500":
           description: Internal Server Error
   /auth/password/forgot:
     post:
       tags:
-        - Auth
+      - Auth
       summary: Send password reset link
       requestBody:
-        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/ForgotPasswordRequest'
+        required: true
       responses:
-        '200':
+        "200":
           description: Password reset link sent
-        '400':
+        "400":
           description: Bad Request
-        '500':
+        "500":
           description: Internal Server Error
   /auth/password/reset:
     post:
       tags:
-        - Auth
+      - Auth
       summary: Reset password
       requestBody:
-        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/ResetPasswordRequest'
+        required: true
       responses:
-        '200':
+        "200":
           description: Password successfully reset
-        '400':
+        "400":
           description: Bad Request
-        '500':
+        "500":
           description: Internal Server Error
   /auth/magic-link:
     post:
       tags:
-        - Auth
+      - Auth
       summary: Send magic link for login
       requestBody:
-        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/MagicLinkRequest'
+        required: true
       responses:
-        '200':
+        "200":
           description: Magic link sent
-        '400':
+        "400":
           description: Bad Request
-        '500':
+        "500":
           description: Internal Server Error
   /auth/social:
     post:
       tags:
-        - Auth
-      summary: Social login (Google, Facebook, etc.)
+      - Auth
+      summary: "Social login (Google, Facebook, etc.)"
       requestBody:
-        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/SocialLoginRequest'
+        required: true
       responses:
-        '200':
+        "200":
           description: Successfully logged in via social login
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '500':
+        "500":
           description: Internal Server Error
   /auth/password/change:
     post:
       tags:
-        - Auth
+      - Auth
       summary: Change password
       requestBody:
-        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/ChangePasswordRequest'
+        required: true
       responses:
-        '200':
+        "200":
           description: Password successfully changed
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '500':
+        "500":
           description: Internal Server Error
   /auth/me:
     get:
       tags:
-        - Auth
+      - Auth
       summary: Get authenticated user details
       responses:
-        '200':
+        "200":
           description: Authenticated user details
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
-        '401':
+        "401":
           description: Unauthorized
-        '500':
+        "500":
           description: Internal Server Error
   /email/templates:
     get:
       tags:
-        - Emails
+      - Emails
       summary: Get all email templates
       responses:
-        '200':
+        "200":
           description: A list of email templates
           content:
             application/json:
@@ -207,170 +207,168 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/EmailTemplate'
-        '500':
+        "500":
           description: Internal Server Error
     post:
       tags:
-        - Emails
+      - Emails
       summary: Create a new email template
       requestBody:
-        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/EmailTemplate'
+        required: true
       responses:
-        '201':
+        "201":
           description: Email template created
-        '400':
+        "400":
           description: Bad Request
-        '500':
+        "500":
           description: Internal Server Error
   /email/templates/{id}:
     put:
       tags:
-        - Emails
+      - Emails
       summary: Update an email template
       parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: integer
-      requestBody:
+      - name: id
+        in: path
         required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/EmailTemplate'
+        required: true
       responses:
-        '200':
+        "200":
           description: Email template updated
-        '400':
+        "400":
           description: Bad Request
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
     delete:
       tags:
-        - Emails
+      - Emails
       summary: Delete an email template
       parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: integer
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
       responses:
-        '200':
+        "200":
           description: Email template deleted
-        '400':
+        "400":
           description: Bad Request
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
   /payments/stripe:
     post:
       tags:
-        - Payments
+      - Payments
       summary: Create a Stripe payment
       requestBody:
-        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/PaymentRequest'
+        required: true
       responses:
-        '200':
+        "200":
           description: Stripe payment created
-        '400':
+        "400":
           description: Bad Request
-        '500':
+        "500":
           description: Internal Server Error
   /payments/flutterwave:
     post:
       tags:
-        - Payments
+      - Payments
       summary: Create a Flutterwave payment
       requestBody:
-        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/PaymentRequest'
+        required: true
       responses:
-        '200':
+        "200":
           description: Flutterwave payment created
-        '400':
+        "400":
           description: Bad Request
-        '500':
+        "500":
           description: Internal Server Error
   /payments/lemonsqueezy:
     post:
       tags:
-        - Payments
+      - Payments
       summary: Create a LemonSqueezy payment
       requestBody:
-        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/PaymentRequest'
+        required: true
       responses:
-        '200':
+        "200":
           description: LemonSqueezy payment created
-        '400':
+        "400":
           description: Bad Request
-        '500':
+        "500":
           description: Internal Server Error
-       
   /payments/initialize:
     post:
       tags:
-        - Payments
+      - Payments
       summary: Initialize a payment
       requestBody:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                amount:
-                  type: number
-                currency:
-                  type: string
-                provider:
-                  type: string
+              $ref: '#/components/schemas/payments_initialize_body'
       responses:
-        '200':
+        "200":
           description: Payment initialized
-        '400':
+        "400":
           description: Invalid input data
   /payments/verify:
     get:
       tags:
-        - Payments
+      - Payments
       summary: Verify a payment
       parameters:
-        - name: transaction_id
-          in: query
-          required: true
-          schema:
-            type: string
+      - name: transaction_id
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
       responses:
-        '200':
+        "200":
           description: Payment verified
-        '400':
+        "400":
           description: Invalid transaction ID
   /payments/history:
     get:
       tags:
-        - Payments
+      - Payments
       summary: Get payment history
       responses:
-        '200':
+        "200":
           description: Payment history
           content:
             application/json:
@@ -378,17 +376,17 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Payment'
-        '401':
+        "401":
           description: Unauthorized
-        '500':
+        "500":
           description: Internal Server Error
   /users:
     get:
       tags:
-        - Users
+      - Users
       summary: Get all users
       responses:
-        '200':
+        "200":
           description: A list of users
           content:
             application/json:
@@ -396,98 +394,104 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/User'
-        '500':
+        "500":
           description: Internal Server Error
     post:
       tags:
-        - Users
+      - Users
       summary: Create a new user
       requestBody:
-        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/User'
+        required: true
       responses:
-        '201':
+        "201":
           description: User created
-        '400':
+        "400":
           description: Bad Request
-        '500':
+        "500":
           description: Internal Server Error
   /users/{id}:
     get:
       tags:
-        - Users
+      - Users
       summary: Get user details
       parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: integer
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
       responses:
-        '200':
+        "200":
           description: User details
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
     put:
       tags:
-        - Users
+      - Users
       summary: Update user details
       parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: integer
-      requestBody:
+      - name: id
+        in: path
         required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/User'
+        required: true
       responses:
-        '200':
+        "200":
           description: User updated
-        '400':
+        "400":
           description: Bad Request
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
     delete:
       tags:
-        - Users
+      - Users
       summary: Delete a user
       parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: integer
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
       responses:
-        '200':
+        "200":
           description: User deleted
-        '400':
+        "400":
           description: Bad Request
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
   /organisations:
     get:
       tags:
-        - Organisations
+      - Organisations
       summary: Get all organisations
       responses:
-        '200':
+        "200":
           description: A list of organisations
           content:
             application/json:
@@ -495,98 +499,104 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Organisation'
-        '500':
+        "500":
           description: Internal Server Error
     post:
       tags:
-        - Organisations
+      - Organisations
       summary: Create a new organisation
       requestBody:
-        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/Organisation'
+        required: true
       responses:
-        '201':
+        "201":
           description: Organisation created
-        '400':
+        "400":
           description: Bad Request
-        '500':
+        "500":
           description: Internal Server Error
   /organisations/{id}:
     get:
       tags:
-        - Organisations
+      - Organisations
       summary: Get organisation details
       parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: integer
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
       responses:
-        '200':
+        "200":
           description: Organisation details
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Organisation'
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
     put:
       tags:
-        - Organisations
+      - Organisations
       summary: Update organisation details
       parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: integer
-      requestBody:
+      - name: id
+        in: path
         required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/Organisation'
+        required: true
       responses:
-        '200':
+        "200":
           description: Organisation updated
-        '400':
+        "400":
           description: Bad Request
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
     delete:
       tags:
-        - Organisations
+      - Organisations
       summary: Delete an organisation
       parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: integer
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
       responses:
-        '200':
+        "200":
           description: Organisation deleted
-        '400':
+        "400":
           description: Bad Request
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
   /superadmin/users:
     get:
       tags:
-        - SuperAdmin
+      - SuperAdmin
       summary: Get all users (superadmin view)
       responses:
-        '200':
+        "200":
           description: A list of users (superadmin view)
           content:
             application/json:
@@ -594,17 +604,17 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/User'
-        '401':
+        "401":
           description: Unauthorized
-        '500':
+        "500":
           description: Internal Server Error
   /superadmin/organisations:
     get:
       tags:
-        - SuperAdmin
+      - SuperAdmin
       summary: Get all organisations (superadmin view)
       responses:
-        '200':
+        "200":
           description: A list of organisations (superadmin view)
           content:
             application/json:
@@ -612,17 +622,17 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Organisation'
-        '401':
+        "401":
           description: Unauthorized
-        '500':
+        "500":
           description: Internal Server Error
   /superadmin/payments:
     get:
       tags:
-        - SuperAdmin
+      - SuperAdmin
       summary: Get all payments (superadmin view)
       responses:
-        '200':
+        "200":
           description: A list of payments (superadmin view)
           content:
             application/json:
@@ -630,18 +640,17 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Payment'
-        '401':
+        "401":
           description: Unauthorized
-        '500':
+        "500":
           description: Internal Server Error
-  
   /superadmin/activity-log:
     get:
       tags:
-        - SuperAdmin
+      - SuperAdmin
       summary: Get activity log
       responses:
-        '200':
+        "200":
           description: Activity log
           content:
             application/json:
@@ -649,54 +658,41 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Activity'
-        '401':
+        "401":
           description: Unauthorized
-        '500':
+        "500":
           description: Internal Server Error
   /invite:
     post:
       tags:
-        - Invite
+      - Invite
       summary: Generate an invite link
       requestBody:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                email:
-                  type: string
+              $ref: '#/components/schemas/invite_body'
       responses:
-        '200':
+        "200":
           description: Invite link generated
-        '400':
-          description: Invalid input data    
+        "400":
+          description: Invalid input data
   /notifications/push:
     post:
       tags:
-        - Notifications
+      - Notifications
       summary: Send a push notification
       requestBody:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                title:
-                  type: string
-                message:
-                  type: string
+              $ref: '#/components/schemas/notifications_push_body'
       responses:
-        '200':
+        "200":
           description: Notification sent
-        '400':
+        "400":
           description: Invalid input data
 components:
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
   schemas:
     RegisterRequest:
       type: object
@@ -1171,3 +1167,29 @@ components:
         updated_at:
           type: string
           format: date-time
+    payments_initialize_body:
+      type: object
+      properties:
+        amount:
+          type: number
+        currency:
+          type: string
+        provider:
+          type: string
+    invite_body:
+      type: object
+      properties:
+        email:
+          type: string
+    notifications_push_body:
+      type: object
+      properties:
+        title:
+          type: string
+        message:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
